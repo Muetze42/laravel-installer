@@ -1,6 +1,6 @@
 # Laravel Application Installer
 
-A Laravel Installer created with [Lura](https://github.com/Muetze42/lura).
+A Laravel Installer created for [Lura](https://github.com/Muetze42/lura).
 
 ## Installation
 
