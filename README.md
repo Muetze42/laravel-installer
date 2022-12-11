@@ -8,7 +8,7 @@ A Laravel Installer created with [Lura](https://github.com/Muetze42/lura).
 composer global require norman-huth/laravel-installer
 ```
 
-### Register Install in Lura
+### Register Installer in Lura
 
 ```shell
 lura register norman-huth/laravel-installer
