@@ -1,3 +1,6 @@
 {
-
+    "laravel-nova": true,
+    "files-override-path": null,
+    "inertia": true,
+    "docker": true
 }

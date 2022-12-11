@@ -1,5 +1,5 @@
 {
-    "name": "vendor/my-lura-installer",
+    "name": "norman-huth/laravel-installer",
     "license": "MIT",
     "require": {
         "php": "^8.0",

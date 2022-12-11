@@ -1,33 +1,31 @@
-# Lura Installer Template
+# Laravel Application Installer
 
-A Installer Template for [Lura](https://github.com/Muetze42/lura).
+A Laravel Installer created with [Lura](https://github.com/Muetze42/lura).
 
-## Development
-
-### Set up the `composer.json` file.
-
-```json
-{
-    "name": "vendor/my-lura-installer"
-}
-```
-
-### Don't forget to register the installer after install
+## Installation
 
 ```shell
-lura register vendor/my-lura-installer
+composer global require norman-huth/laravel-installer
 ```
 
-### Installer command
+### Register Install in Lura
 
-Use the `lura/Installer.php`. No Namespace, no autoload!.
+```shell
+lura register norman-huth/laravel-installer
+```
 
-| Method                  |                           |
-|-------------------------|---------------------------|
-| runLura(mixed $command) | The running command.      |
+#### Run Install
 
-runLura: You have the functionality of a [Laravel command](https://laravel.com/docs/artisan) except Input Expectations
+```shell
+lura
+```
 
-### Optional: Configuration
+#### Change configs (Question for Nova install etc)
 
-Add configuration to the `config/lura-config.json`
+Edit Lura Local Config File. See: [Lura Docs](https://github.com/Muetze42/lura-installer-template#readme)
+
+## Features
+
+* Install optional with Starte Kit
+* Install optional with Laravel Nova
+* Install optional with Inertia
