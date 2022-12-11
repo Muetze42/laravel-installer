@@ -22,7 +22,7 @@ lura
 
 #### Change configs (Question for Nova install etc)
 
-Edit Lura Local Config File. See: [Lura Docs](https://github.com/Muetze42/lura-installer-template#readme)
+Edit Lura Local Config File. See: [Lura Docs](https://github.com/Muetze42/lura#edit-installer-config)
 
 ## Features
 
