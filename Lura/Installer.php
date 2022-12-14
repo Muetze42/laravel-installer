@@ -405,7 +405,8 @@ class Installer extends LuraInstaller
      */
     protected function setStorageDisk(): void
     {
-        $this->storage = $this->command->createFilesystem(__DIR__.'/../storage');
+        $dir = dirname(__DIR__).DIRECTORY_SEPARATOR.'storage';
+        $this->storage = $this->command->createFilesystem($dir);
     }
 
     /**
