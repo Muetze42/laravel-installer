@@ -32,4 +32,16 @@ class ResourceCommand extends Command
         $stub = str_replace(['{{ plural }}', '{{plural}}'], Str::plural($class), $stub);
         return str_replace(['DummyClass', '{{ class }}', '{{class}}'], $class, $stub);
     }
+
+    /**
+     * Get the base resource class.
+     *
+     * @return class-string
+     */
+    protected function getBaseResourceClass(): string
+    {
+        $rootNamespace = $this->laravel->getNamespace();
+
+        return "{$rootNamespace}Nova\Resources\Resource";
+    }
 }
