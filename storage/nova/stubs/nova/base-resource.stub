@@ -26,6 +26,21 @@ abstract class Resource extends NovaResource
     public static $showColumnBorders = false;
 
     /**
+     * The click action to use when clicking on the resource in the table.
+     * Can be one of: 'detail' (default), 'edit', 'select', 'preview', or 'ignore'.
+     *
+     * @var string
+     */
+    public static $clickAction = 'detail';
+
+    /**
+     * The visual style used for the table. Available options are 'tight' and 'default'.
+     *
+     * @var string
+     */
+    public static $tableStyle = 'default';
+
+    /**
      * The column by which to sort as default
      *
      * @var string
