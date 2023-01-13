@@ -69,17 +69,7 @@ abstract class Resource extends NovaResource
      */
     public static function singularLabel(): string
     {
-        return __(parent::singularLabel());
-    }
-
-    /**
-     * Get the text for the create resource button.
-     *
-     * @return string
-     */
-    public static function createButtonLabel(): string
-    {
-        return __('Create :resource', ['resource' => static::singularLabel()]);
+        return __(Str::singular(Str::title(Str::snake(class_basename(get_called_class()), ' '))));
     }
 
     /**
