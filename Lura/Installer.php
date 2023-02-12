@@ -12,6 +12,7 @@ class Installer extends LuraInstaller
 {
     protected Filesystem $storage;
     protected string $appName;
+    protected bool $dev;
     protected ?string $starterKit;
     protected bool $jetstreamTeams = true;
     protected bool $installNova = false;
@@ -326,7 +327,8 @@ class Installer extends LuraInstaller
      */
     protected function install(): void
     {
-        $command = $this->command->composer.' create-project laravel/laravel '.$this->appFolder.' --no-install --no-interaction --no-scripts --remove-vcs --prefer-dist';
+        $branch = $this->dev ? 'dev-master ': '';
+        $command = $this->command->composer.' create-project laravel/laravel '.$this->appFolder.' '.$branch.'--no-install --no-interaction --no-scripts --remove-vcs --prefer-dist';
         $process = Process::fromShellCommandline($command);
         $process->start();
         foreach ($process as $data) {
@@ -343,6 +345,8 @@ class Installer extends LuraInstaller
      */
     protected function questions(): void
     {
+        $this->dev = $this->command->confirm('Do You want install the development Version of Laravel instead latest release?', false);
+
         $this->starterKit = $this->command->choice(
             'Install starter kit?',
             [
