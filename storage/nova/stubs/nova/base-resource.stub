@@ -3,9 +3,7 @@
 namespace {{ namespace }};
 
 use Illuminate\Database\Eloquent\Builder;
-#use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\FieldCollection;
-#use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource as NovaResource;
 
@@ -26,6 +24,21 @@ abstract class Resource extends NovaResource
     public static $showColumnBorders = false;
 
     /**
+     * The click action to use when clicking on the resource in the table.
+     * Can be one of: 'detail' (default), 'edit', 'select', 'preview', or 'ignore'.
+     *
+     * @var string
+     */
+    public static $clickAction = 'detail';
+
+    /**
+     * The visual style used for the table. Available options are 'tight' and 'default'.
+     *
+     * @var string
+     */
+    public static $tableStyle = 'default';
+
+    /**
      * The column by which to sort as default
      *
      * @var string
@@ -38,6 +51,26 @@ abstract class Resource extends NovaResource
      * @var string
      */
     public static string $defaultOrder = 'desc';
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label(): string
+    {
+        return __(parent::label());
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel(): string
+    {
+        return __(Str::singular(Str::title(Str::snake(class_basename(get_called_class()), ' '))));
+    }
 
     /**
      * Build an "index" query filter for the given resource.
@@ -146,14 +179,14 @@ abstract class Resource extends NovaResource
 //
 //        if ($this->showCreatedAtField($request) && static::$model::CREATED_AT) {
 //            $fields = array_merge($fields, [
-//                DateTime::make(__('Created at'), 'created_at')
+//                \Laravel\Nova\Fields\DateTime::make(__('Created at'), 'created_at')
 //                    ->sortable()->filterable()->exceptOnForms()
 //            ]);
 //        }
 //
 //        if ($this->showUpdatedAtField($request) && static::$model::UPDATED_AT) {
 //            $fields = array_merge($fields, [
-//                DateTime::make(__('Updated at'), 'updated_at')
+//                \Laravel\Nova\Fields\DateTime::make(__('Updated at'), 'updated_at')
 //                    ->sortable()->filterable()->exceptOnForms()
 //            ]);
 //        }
@@ -163,7 +196,7 @@ abstract class Resource extends NovaResource
 //         * */
 //        if ($request->input('trashed')) {
 //            $fields = array_merge($fields, [
-//                DateTime::make(__('Deleted at'), 'deleted_at')
+//                \Laravel\Nova\Fields\DateTime::make(__('Deleted at'), 'deleted_at')
 //                    ->sortable()->filterable()->exceptOnForms()
 //            ]);
 //        }
@@ -173,7 +206,7 @@ abstract class Resource extends NovaResource
 //         * */
 //        if (method_exists(static::$model, 'getLogName') && class_exists('App\Nova\Resources\Activity')) {
 //            $fields = array_merge($fields, [
-//                MorphMany::make(__('Activities'), 'activities', Activity::class)
+//                \Laravel\Nova\Fields\MorphMany::make(__('Activities'), 'activities', Activity::class)
 //            ]);
 //        }
 //
