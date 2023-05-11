@@ -178,9 +178,9 @@ class Installer extends LuraInstaller
         if ($this->installInertia) {
             $devDependencies = static::addPackage($devDependencies, 'vue-loader', '^16.8.3');
             $dependencies = static::addPackage($dependencies, '@babel/plugin-syntax-dynamic-import', '^7.8.3');
-            $dependencies = static::addPackage($dependencies, '@inertiajs/inertia', '^0.11.0');
-            $dependencies = static::addPackage($dependencies, '@inertiajs/inertia-vue3', '^0.6.0');
-            $dependencies = static::addPackage($dependencies, '@inertiajs/progress', '^0.2.7');
+//            $dependencies = static::addPackage($dependencies, '@inertiajs/inertia', '^0.11.0');
+            $dependencies = static::addPackage($dependencies, '@inertiajs/inertia-vue3', '^1.0.6');
+//            $dependencies = static::addPackage($dependencies, '@inertiajs/progress', '^0.2.7');
             $dependencies = static::addPackage($dependencies, 'vue', '^3.2.3x');
         }
 
