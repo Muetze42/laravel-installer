@@ -382,7 +382,7 @@ class Installer extends LuraInstaller
         if ($this->starterKit == 'no' && data_get($this->command->installerConfig, 'inertia', true)) {
             $this->installInertia = $this->command->confirm('Install Inertia?', false);
             $word = $this->installInertia ? 'Install' : 'Don’t install';
-            $this->command->info($word.' Install');
+            $this->command->info($word.' Inertia');
         }
 
         if (data_get($this->command->installerConfig, 'docker', true)) {
