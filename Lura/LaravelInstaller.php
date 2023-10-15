@@ -14,7 +14,7 @@ class LaravelInstaller extends LuraInstaller
     protected Filesystem $storage;
     protected string $appName;
     protected bool $dev;
-    protected ?string $starterKit;
+    protected ?string $starterKit = null;
     protected bool $jetstreamTeams = true;
     protected bool $installNova = false;
     protected bool $installInertia = false;
@@ -410,6 +410,8 @@ class LaravelInstaller extends LuraInstaller
     {
         $this->questionDev();
         $this->questionStarterKit();
+        $this->questionInertia();
+        $this->questionNova();
         $this->questionDocker();
     }
 
@@ -437,8 +439,6 @@ class LaravelInstaller extends LuraInstaller
             'no'
         );
 
-        $this->command->info('Starter Kit: ' . $this->starterKit);
-
         if (in_array($this->starterKit, ['Jetstream with Livewire', 'Jetstream with Inertia'])) {
             $this->jetstreamTeams = $this->command->confirm('Enable team support?');
         }
@@ -451,12 +451,21 @@ class LaravelInstaller extends LuraInstaller
         ) {
             $this->SSR = $this->command->confirm('Install stack with SSR support?', false);
         }
+    }
 
+    protected function questionNova(): void
+    {
         if (data_get($this->command->installerConfig, 'laravel-nova', true)) {
             $this->installNova = $this->command->confirm('Install Laravel Nova?', false);
         }
+    }
 
-        if ($this->starterKit == 'no' && data_get($this->command->installerConfig, 'inertia', true)) {
+    protected function questionInertia(): void
+    {
+        if (
+            ($this->starterKit == 'no' || !$this->starterKit) &&
+            data_get($this->command->installerConfig, 'inertia', true)
+        ) {
             $this->installInertia = $this->command->confirm('Install Inertia?', false);
         }
     }
