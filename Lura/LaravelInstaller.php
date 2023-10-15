@@ -456,7 +456,7 @@ class LaravelInstaller extends LuraInstaller
     protected function questionNova(): void
     {
         if (data_get($this->command->installerConfig, 'laravel-nova', true)) {
-            $this->installNova = $this->command->confirm('Install Laravel Nova?', $this->installInertia);
+            $this->installNova = $this->command->confirm('Install Laravel Nova?', $this->installNova);
         }
     }
 
