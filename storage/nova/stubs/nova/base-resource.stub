@@ -76,9 +76,9 @@ abstract class Resource extends NovaResource
     /**
      * Build an "index" query filter for the given resource.
      *
-     * @param NovaRequest $request
-     * @param Builder $query
-     * @return Builder
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function indexFilter(NovaRequest $request, Builder $query): Builder
     {
@@ -88,9 +88,9 @@ abstract class Resource extends NovaResource
     /**
      * Build an "index" query for the given resource.
      *
-     * @param NovaRequest $request
-     * @param Builder $query
-     * @return Builder
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function indexQuery(NovaRequest $request, $query): Builder
     {
@@ -107,7 +107,7 @@ abstract class Resource extends NovaResource
     /**
      * Build a Scout search query for the given resource.
      *
-     * @param NovaRequest $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @param \Laravel\Scout\Builder $query
      * @return \Laravel\Scout\Builder
      */
@@ -119,9 +119,9 @@ abstract class Resource extends NovaResource
     /**
      * Build a "detail" query for the given resource.
      *
-     * @param NovaRequest $request
-     * @param Builder $query
-     * @return Builder
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function detailQuery(NovaRequest $request, $query): Builder
     {
@@ -133,9 +133,9 @@ abstract class Resource extends NovaResource
      *
      * This query determines which instances of the model may be attached to other resources.
      *
-     * @param NovaRequest $request
-     * @param Builder $query
-     * @return Builder
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function relatableQuery(NovaRequest $request, $query): Builder
     {
@@ -145,35 +145,34 @@ abstract class Resource extends NovaResource
     /******************
      * Default fields *
      *****************/
-
-    /**
-     * Show in this resource the DateTime field `created_at`
-     *
-     * @var bool
-     */
+//    /**
+//     * Show in this resource the DateTime field `created_at`
+//     *
+//     * @var bool
+//     */
 //    public bool $showCreatedAtField = true;
 //    public function showCreatedAtField(NovaRequest $request): bool
 //    {
 //        return $this->showCreatedAtField;
 //    }
-
-    /**
-     * Show in this resource the DateTime field `updated_at`
-     *
-     * @var bool
-     */
+//
+//    /**
+//     * Show in this resource the DateTime field `updated_at`
+//     *
+//     * @var bool
+//     */
 //    public bool $showUpdatedAtField = true;
 //    public function showUpdatedAtField(NovaRequest $request): bool
 //    {
 //        return $this->showUpdatedAtField;
 //    }
-
-    /**
-     * Default fields for every resource
-     *
-     * @param NovaRequest $request
-     * @return array
-     */
+//
+//    /**
+//     * Default fields for every resource
+//     *
+//     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+//     * @return array
+//     */
 //    protected function defaultFields(NovaRequest $request): array
 //    {
 //        $fields = [];
@@ -213,13 +212,13 @@ abstract class Resource extends NovaResource
 //
 //        return $fields;
 //    }
-
-    /**
-     * Get the fields that are available for the given request.
-     *
-     * @param NovaRequest $request
-     * @return FieldCollection
-     */
+//
+//    /**
+//     * Get the fields that are available for the given request.
+//     *
+//     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+//     * @return FieldCollection
+//     */
 //    public function availableFields(NovaRequest $request): FieldCollection
 //    {
 //        $method = $this->fieldsMethod($request);
@@ -227,14 +226,14 @@ abstract class Resource extends NovaResource
 //
 //        return FieldCollection::make(array_values($this->filter($fields)));
 //    }
-
-    /**
-     * Get the fields that are available for the given request.
-     *
-     * @param NovaRequest $request
-     * @param array $methods
-     * @return FieldCollection
-     */
+//
+//    /**
+//     * Get the fields that are available for the given request.
+//     *
+//     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+//     * @param array $methods
+//     * @return FieldCollection
+//     */
 //    public function buildAvailableFields(NovaRequest $request, array $methods): FieldCollection
 //    {
 //        $fields = collect([
