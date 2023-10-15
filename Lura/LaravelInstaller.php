@@ -93,7 +93,7 @@ class LaravelInstaller extends LuraInstaller
         );
         $content = $this->command->replaceNth(
             '/\/\//',
-            '#use //\Illuminate\Http\Resources\Json\JsonResource::withoutWrapping();
+            '//\Illuminate\Http\Resources\Json\JsonResource::withoutWrapping();
 
         Password::defaults(static function () {
             return Password::min(12)
