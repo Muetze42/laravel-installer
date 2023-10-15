@@ -179,6 +179,7 @@ class LaravelInstaller extends LuraInstaller
         $command = 'cd ' . $this->command->cwdDisk->path($this->appFolder) . ' && ' . $command;
 
         $process = Process::fromShellCommandline($command);
+        $process->setTimeout(null);
         $process->run(function ($type, $line) {
             $this->command->line('    ' . $line);
         });
@@ -380,6 +381,7 @@ class LaravelInstaller extends LuraInstaller
     {
         $command = $this->command->composer . ' config --global http-basic.nova.laravel.com.password';
         $process = Process::fromShellCommandline($command);
+        $process->setTimeout(null);
         $process->run(function ($type, $line) {
             if ($type == 'out') {
                 $this->laravelNovaKey = trim($line);
@@ -398,6 +400,7 @@ class LaravelInstaller extends LuraInstaller
         $command = $this->command->composer . ' create-project laravel/laravel ' . $this->appFolder . ' ' . $branch .
             '--no-install --no-interaction --no-scripts --remove-vcs --prefer-dist';
         $process = Process::fromShellCommandline($command);
+        $process->setTimeout(null);
         $process->start();
         foreach ($process as $data) {
             $this->command->line($data);
