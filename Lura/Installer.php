@@ -126,6 +126,10 @@ class Installer extends LuraInstaller
             $this->runCommand('php artisan nova:install');
         }
 
+        if ($this->docker) {
+            $this->publishFolder('docker', '');
+        }
+
         switch ($this->starterKit) {
             case 'Breeze':
                 $this->runCommand('php artisan breeze:install');
@@ -437,8 +441,6 @@ class Installer extends LuraInstaller
 
         if (in_array($this->starterKit, ['Jetstream with Livewire', 'Jetstream with Inertia'])) {
             $this->jetstreamTeams = $this->command->confirm('Enable team support?');
-            $word = $this->jetstreamTeams ? 'with' : 'without';
-            $this->command->info('Install Jetstream ' . $word . ' team support');
         }
 
         if (
@@ -463,8 +465,6 @@ class Installer extends LuraInstaller
     {
         if (data_get($this->command->installerConfig, 'docker', true)) {
             $this->docker = $this->command->confirm('Add Docker files?', false);
-            $word = $this->docker ? 'Add' : 'Don’t add';
-            $this->command->info($word . ' Docker files');
         }
     }
 
