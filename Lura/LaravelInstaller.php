@@ -233,6 +233,11 @@ class LaravelInstaller extends LuraInstaller
                 'vue',
                 $this->formatVersion('vue', '3.3.4')
             );
+            $devDependencies = static::addPackage(
+                $devDependencies,
+                '@vitejs/plugin-vue',
+                $this->formatVersion('@vitejs/plugin-vue', '4.4.0')
+            );
         }
 
         data_set($packageJson, 'devDependencies', $devDependencies);
