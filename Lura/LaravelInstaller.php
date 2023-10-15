@@ -456,7 +456,7 @@ class LaravelInstaller extends LuraInstaller
     protected function questionNova(): void
     {
         if (data_get($this->command->installerConfig, 'laravel-nova', true)) {
-            $this->installNova = $this->command->confirm('Install Laravel Nova?', false);
+            $this->installNova = $this->command->confirm('Install Laravel Nova?', $this->installInertia);
         }
     }
 
@@ -466,14 +466,14 @@ class LaravelInstaller extends LuraInstaller
             ($this->starterKit == 'no' || !$this->starterKit) &&
             data_get($this->command->installerConfig, 'inertia', true)
         ) {
-            $this->installInertia = $this->command->confirm('Install Inertia?', false);
+            $this->installInertia = $this->command->confirm('Install Inertia?', $this->installInertia);
         }
     }
 
     protected function questionDocker(): void
     {
         if (data_get($this->command->installerConfig, 'docker', true)) {
-            $this->docker = $this->command->confirm('Add Docker files?', false);
+            $this->docker = $this->command->confirm('Add Docker files?', $this->docker);
         }
     }
 
