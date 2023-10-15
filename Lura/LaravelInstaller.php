@@ -1,4 +1,5 @@
 <?php
+
 // phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -87,11 +88,12 @@ class LaravelInstaller extends LuraInstaller
 
         $content = str_replace(
             'use Illuminate\Support\ServiceProvider;',
-            'use Illuminate\Support\ServiceProvider;' . "\n#use Illuminate\Http\Resources\Json\JsonResource;" .
-            "\nuse Illuminate\Validation\Rules\Password;",
+            "use Illuminate\Support\ServiceProvider;\nuse Illuminate\Validation\Rules\Password;",
             $content
         );
-        $content = $this->command->replaceNth('/\/\//', '#JsonResource::withoutWrapping();
+        $content = $this->command->replaceNth(
+            '/\/\//',
+            '#use //\Illuminate\Http\Resources\Json\JsonResource::withoutWrapping();
 
         Password::defaults(static function () {
             return Password::min(12)
@@ -100,7 +102,9 @@ class LaravelInstaller extends LuraInstaller
                 ->numbers()
                 ->symbols()
                 ->uncompromised();
-        });', $content);
+        });',
+            $content
+        );
 
         $this->command->cwdDisk->put($target, $content);
     }
