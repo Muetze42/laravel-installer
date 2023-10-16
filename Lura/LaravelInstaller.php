@@ -3,28 +3,65 @@
 // phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use NormanHuth\ConsoleApp\LuraCommand;
 use NormanHuth\ConsoleApp\LuraInstaller;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Str;
 
 class LaravelInstaller extends LuraInstaller
 {
+    /**
+     * @var \Illuminate\Contracts\Filesystem\Filesystem
+     */
     protected Filesystem $storage;
+    /**
+     * @var string
+     */
     protected string $appName;
+    /**
+     * @var bool
+     */
     protected bool $dev;
+    /**
+     * @var string|null
+     */
     protected ?string $starterKit = null;
+    /**
+     * @var bool
+     */
     protected bool $jetstreamTeams = true;
+    /**
+     * @var bool
+     */
     protected bool $installNova = false;
+    /**
+     * @var bool
+     */
     protected bool $installInertia = false;
+    /**
+     * @var bool
+     */
     protected bool $SSR = true;
+    /**
+     * @var bool
+     */
     protected bool $docker = false;
+    /**
+     * @var string
+     */
     protected string $appFolder = '';
+    /**
+     * @var string
+     */
     protected string $laravelNovaKey = '';
+    /**
+     * @var int
+     */
     protected int $laravelMainVersion = 0;
 
+    /**
+     * @var array
+     */
     protected array $versions = [];
 
     /**
@@ -37,20 +74,19 @@ class LaravelInstaller extends LuraInstaller
     /**
      * Execute the installer console command.
      *
-     * @param mixed|LuraCommand $command
-     * @return int
+     * @param mixed|\NormanHuth\ConsoleApp\LuraCommand $command
      */
-    public function runLura(mixed $command): int
+    public function runLura(mixed $command)
     {
         $this->command = $command;
         $this->setStorageDisk();
         $this->appName = $this->getAppName();
-        $this->appFolder = $this->command->getRepoSlug($this->appName);
+        $this->appFolder = $this->getRepoSlug($this->appName);
 
         if (!$this->command->existCheck($this->appFolder)) {
             $this->command->error('The directory ' . $this->appFolder . ' already exist');
 
-            return SymfonyCommand::FAILURE;
+            return;
         }
 
         if (
@@ -77,10 +113,11 @@ class LaravelInstaller extends LuraInstaller
             $this->appName,
             $this->appFolder
         ));
-
-        return SymfonyCommand::SUCCESS;
     }
 
+    /**
+     * @return void
+     */
     protected function updateAppServiceProvider(): void
     {
         $target = $this->appFolder . '/app/Providers/AppServiceProvider.php';
@@ -109,6 +146,12 @@ class LaravelInstaller extends LuraInstaller
         $this->command->cwdDisk->put($target, $content);
     }
 
+    /**
+     * @param string $from
+     * @param string $to
+     *
+     * @return void
+     */
     protected function publishFolder(string $from, string $to): void
     {
         $this->command->filesystem->copyDirectory(
@@ -117,6 +160,9 @@ class LaravelInstaller extends LuraInstaller
         );
     }
 
+    /**
+     * @return void
+     */
     protected function afterComposerInstall(): void
     {
         /* Change stack logging channel driver to daily */
@@ -178,6 +224,11 @@ class LaravelInstaller extends LuraInstaller
         }
     }
 
+    /**
+     * @param string $command
+     *
+     * @return void
+     */
     protected function runCommand(string $command): void
     {
         $command = 'cd ' . $this->command->cwdDisk->path($this->appFolder) . ' && ' . $command;
@@ -197,6 +248,13 @@ class LaravelInstaller extends LuraInstaller
         $this->runCommand($this->command->composer . ' install --prefer-dist');
     }
 
+    /**
+     * @param string $package
+     * @param string $default
+     * @param string $type
+     *
+     * @return array|mixed|string
+     */
     protected function formatVersion(string $package, string $default, string $type = 'npm')
     {
         $version = data_get($this->versions, $type . '.' . $package, $default);
@@ -204,6 +262,9 @@ class LaravelInstaller extends LuraInstaller
         return str_starts_with($version, '^') ? $version : '^' . $version;
     }
 
+    /**
+     * @return void
+     */
     protected function customChanges(): void
     {
         //
@@ -283,10 +344,10 @@ class LaravelInstaller extends LuraInstaller
 
         if (
             in_array($this->starterKit, [
-            'Breeze',
-            'Breeze with Vue scaffolding',
-            'Breeze with React scaffolding',
-            'Breeze with Next.js / API scaffolding',
+                'Breeze',
+                'Breeze with Vue scaffolding',
+                'Breeze with React scaffolding',
+                'Breeze with Next.js / API scaffolding',
             ])
         ) {
             $devRequirements = static::addPackage($devRequirements, 'laravel/breeze', '^v1.25.0');
@@ -294,8 +355,8 @@ class LaravelInstaller extends LuraInstaller
 
         if (
             in_array($this->starterKit, [
-            'Jetstream with Livewire',
-            'Jetstream with Inertia',
+                'Jetstream with Livewire',
+                'Jetstream with Inertia',
             ])
         ) {
             $devRequirements = static::addPackage($devRequirements, 'laravel/jetstream', '^v4.0.3');
@@ -427,6 +488,9 @@ class LaravelInstaller extends LuraInstaller
         $this->questionDocker();
     }
 
+    /**
+     * @return void
+     */
     protected function questionDev(): void
     {
         $this->dev = $this->command->confirm(
@@ -435,6 +499,9 @@ class LaravelInstaller extends LuraInstaller
         );
     }
 
+    /**
+     * @return void
+     */
     protected function questionStarterKit(): void
     {
         $this->starterKit = $this->command->choice(
@@ -465,6 +532,9 @@ class LaravelInstaller extends LuraInstaller
         }
     }
 
+    /**
+     * @return void
+     */
     protected function questionNova(): void
     {
         if (data_get($this->command->installerConfig, 'laravel-nova', true)) {
@@ -472,6 +542,9 @@ class LaravelInstaller extends LuraInstaller
         }
     }
 
+    /**
+     * @return void
+     */
     protected function questionInertia(): void
     {
         if (
@@ -482,11 +555,19 @@ class LaravelInstaller extends LuraInstaller
         }
     }
 
+    /**
+     * @return void
+     */
     protected function questionDocker(): void
     {
         if (data_get($this->command->installerConfig, 'docker', true)) {
             $this->docker = $this->command->confirm('Add Docker files?', $this->docker);
         }
+    }
+
+    protected function getRepoSlug(string $name): string
+    {
+        return $this->command->getRepoSlug($name);
     }
 
     /**
@@ -509,9 +590,10 @@ class LaravelInstaller extends LuraInstaller
     }
 
     /**
-     * @param array $key
+     * @param array  $key
      * @param string $package
      * @param string $version
+     *
      * @return array
      */
     protected static function addPackage(array $key, string $package, string $version): array
@@ -538,12 +620,13 @@ class LaravelInstaller extends LuraInstaller
      * @return array
      */
     public static function keyValueInsertToPosition(
-        array $array,
+        array  $array,
         string $key,
-        mixed $value,
-        int $position,
-        bool $insertAfter = true
-    ): array {
+        mixed  $value,
+        int    $position,
+        bool   $insertAfter = true
+    ): array
+    {
         $results = [];
         $items = array_keys($array);
 
