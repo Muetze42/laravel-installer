@@ -3,7 +3,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "norman-huth/lura": "^1.0"
+        "norman-huth/lura": "^v2.0"
     },
     "scripts": {
         "post-package-install": [
