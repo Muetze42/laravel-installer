@@ -7,7 +7,7 @@
     },
     "scripts": {
         "post-package-install": [
-            "lura register norman-huth/lura-laravel-installer"
+            "lura register norman-huth/laravel-installer"
         ]
     },
     "minimum-stability": "dev",

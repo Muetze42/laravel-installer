@@ -6,7 +6,8 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use NormanHuth\ConsoleApp\LuraInstaller;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Illuminate\Support\Str;
+use NormanHuth\Helpers\Str;
+use NormanHuth\Helpers\Arr;
 
 class LaravelInstaller extends LuraInstaller
 {
@@ -249,6 +250,8 @@ class LaravelInstaller extends LuraInstaller
     }
 
     /**
+     * @deprecated Use addDependency Method
+     *
      * @param string $package
      * @param string $default
      * @param string $type
@@ -279,31 +282,15 @@ class LaravelInstaller extends LuraInstaller
         $devDependencies = data_get($packageJson, 'devDependencies', []);
 
         if ($this->installInertia) {
-            $devDependencies = static::addPackage(
-                $devDependencies,
-                'vue-loader',
-                $this->formatVersion('vue-loader', '17.3.0')
-            );
-            $devDependencies = static::addPackage(
+            static::addDependency($devDependencies, 'vue-loader', '17.3.0');
+            static::addDependency(
                 $devDependencies,
                 '@babel/plugin-syntax-dynamic-import',
-                $this->formatVersion('@babel/plugin-syntax-dynamic-import', '7.8.3')
+                '7.8.3'
             );
-            $devDependencies = static::addPackage(
-                $devDependencies,
-                '@inertiajs/vue3',
-                $this->formatVersion('@inertiajs/vue3', '1.0.12')
-            );
-            $devDependencies = static::addPackage(
-                $devDependencies,
-                'vue',
-                $this->formatVersion('vue', '3.3.4')
-            );
-            $devDependencies = static::addPackage(
-                $devDependencies,
-                '@vitejs/plugin-vue',
-                $this->formatVersion('@vitejs/plugin-vue', '4.4.0')
-            );
+            static::addDependency($devDependencies, '@inertiajs/vue3', '1.0.12');
+            static::addDependency($devDependencies, 'vue', '3.3.4');
+            static::addDependency($devDependencies, '@vitejs/plugin-vue', '4.4.0');
         }
 
         data_set($packageJson, 'devDependencies', $devDependencies);
@@ -329,7 +316,7 @@ class LaravelInstaller extends LuraInstaller
         $this->laravelMainVersion = preg_replace('/\D/', '', $version);
 
         if ($this->installNova) {
-            $composerJson = static::keyValueInsertToPosition(
+            $composerJson = Arr::keyValueInsertToPosition(
                 $composerJson,
                 'repositories',
                 [[
@@ -338,8 +325,7 @@ class LaravelInstaller extends LuraInstaller
                 ]],
                 4
             );
-
-            $requirements = static::addPackage($requirements, 'laravel/nova', '^v4.27.14');
+            static::addDependency($requirements, 'laravel/nova', 'v4.27.14');
         }
 
         if (
@@ -350,7 +336,7 @@ class LaravelInstaller extends LuraInstaller
                 'Breeze with Next.js / API scaffolding',
             ])
         ) {
-            $devRequirements = static::addPackage($devRequirements, 'laravel/breeze', '^v1.25.0');
+            static::addDependency($devRequirements, 'laravel/breeze', 'v1.25.0');
         }
 
         if (
@@ -359,11 +345,11 @@ class LaravelInstaller extends LuraInstaller
                 'Jetstream with Inertia',
             ])
         ) {
-            $devRequirements = static::addPackage($devRequirements, 'laravel/jetstream', '^v4.0.3');
+            static::addDependency($devRequirements, 'laravel/jetstream', '^v4.0.3');
         }
 
         if ($this->installInertia) {
-            $requirements = static::addPackage($requirements, 'inertiajs/inertia-laravel', '^v0.6.10');
+            static::addDependency($devRequirements, 'inertiajs/inertia-laravel', '^v0.6.10');
         }
 
         data_set($composerJson, 'require', array_merge(['php' => $php], $requirements));
@@ -590,6 +576,8 @@ class LaravelInstaller extends LuraInstaller
     }
 
     /**
+     * @deprecated use LuraInstaller::addDependency()
+     *
      * @param array  $key
      * @param string $package
      * @param string $version
@@ -608,8 +596,7 @@ class LaravelInstaller extends LuraInstaller
     /**
      * Add an array key value pair to specific position into an existing key value array.
      *
-     * @see  https://github.com/Muetze42/helpers-collection-php
-     * @todo globalize
+     * @deprecated Use \NormanHuth\Helpers\Arr::keyValueInsertToPosition()
      *
      * @param array  $array
      * @param string $key
@@ -620,28 +607,12 @@ class LaravelInstaller extends LuraInstaller
      * @return array
      */
     public static function keyValueInsertToPosition(
-        array  $array,
+        array $array,
         string $key,
-        mixed  $value,
-        int    $position,
-        bool   $insertAfter = true
-    ): array
-    {
-        $results = [];
-        $items = array_keys($array);
-
-        foreach ($items as $index => $item) {
-            if ($index == $position && !$insertAfter) {
-                $results[$key] = $value;
-            }
-
-            $results[$item] = $array[$item];
-
-            if ($index == $position && $insertAfter) {
-                $results[$key] = $value;
-            }
-        }
-
-        return $results;
+        mixed $value,
+        int $position,
+        bool $insertAfter = true
+    ): array {
+        return \NormanHuth\Helpers\Arr::keyValueInsertToPosition($array, $key, $value, $position, $insertAfter);
     }
 }
