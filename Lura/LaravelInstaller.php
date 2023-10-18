@@ -3,7 +3,7 @@
 // phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use NormanHuth\ConsoleApp\LuraInstaller;
+use NormanHuth\Lura\LuraInstaller;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use NormanHuth\Helpers\Str;
@@ -75,7 +75,7 @@ class LaravelInstaller extends LuraInstaller
     /**
      * Execute the installer console command.
      *
-     * @param mixed|\NormanHuth\ConsoleApp\LuraCommand $command
+     * @param mixed|\NormanHuth\Lura\LuraCommand $command
      */
     public function runLura(mixed $command)
     {
