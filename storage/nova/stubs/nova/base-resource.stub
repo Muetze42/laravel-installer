@@ -30,7 +30,7 @@ abstract class Resource extends NovaResource
      *
      * @var string
      */
-    public static $clickAction = 'detail';
+    public static $clickAction = 'ignore';
 
     /**
      * The visual style used for the table. Available options are 'tight' and 'default'.
