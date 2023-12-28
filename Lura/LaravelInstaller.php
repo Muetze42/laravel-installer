@@ -345,11 +345,11 @@ class LaravelInstaller extends LuraInstaller
                 'Jetstream with Inertia',
             ])
         ) {
-            static::addDependency($devRequirements, 'laravel/jetstream', '^v4.0.3');
+            static::addDependency($requirements, 'laravel/jetstream', '^v4.0.3');
         }
 
         if ($this->installInertia) {
-            static::addDependency($devRequirements, 'inertiajs/inertia-laravel', '^v0.6.10');
+            static::addDependency($requirements, 'inertiajs/inertia-laravel', '^v0.6.10');
         }
 
         data_set($composerJson, 'require', array_merge(['php' => $php], $requirements));
