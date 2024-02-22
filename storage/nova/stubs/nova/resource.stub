@@ -5,6 +5,10 @@ namespace {{ namespace }};
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
+/**
+ * @mixin \{{ namespacedModel }}
+ * @method \{{ namespacedModel }}|null model()
+ */
 class {{ class }} extends Resource
 {
     /**

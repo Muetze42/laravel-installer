@@ -10,6 +10,10 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
+/**
+ * @mixin \App\User
+ * @method \App\User|null model()
+ */
 class User extends Resource
 {
     /**
