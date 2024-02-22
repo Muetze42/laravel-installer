@@ -11,8 +11,8 @@ use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 /**
- * @mixin \App\User
- * @method \App\User|null model()
+ * @mixin \App\Models\User
+ * @method \App\Models\User|null model()
  */
 class User extends Resource
 {
