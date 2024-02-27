@@ -376,8 +376,9 @@ class LaravelInstaller extends LuraInstaller
                     $content .= 'APP_NAME="' . $this->appName . '"';
                     break;
                 case 'APP_URL':
-                    /** @noinspection HttpUrlsUsage */
-                    $content .= 'APP_URL=http://' . Str::slug($this->appName) . '.test';
+                    if (!$this->docker) {
+                        $content .= $key . ':8000';
+                    }
                     break;
                 case 'DB_HOST':
                     $value = $this->docker ? 'mysql' : '127.0.0.1';
