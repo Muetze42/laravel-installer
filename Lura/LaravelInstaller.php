@@ -377,7 +377,9 @@ class LaravelInstaller extends LuraInstaller
                     break;
                 case 'APP_URL':
                     if (!$this->docker) {
-                        $content .= $key . ':8000';
+                        $content .= $key . 'http://localhost:8000';
+                    } else {
+                        $content .= $key . 'http://localhost';
                     }
                     break;
                 case 'DB_HOST':
