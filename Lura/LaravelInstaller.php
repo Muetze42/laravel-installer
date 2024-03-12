@@ -382,20 +382,20 @@ class LaravelInstaller extends LuraInstaller
                         $content .= $key . '=http://localhost';
                     }
                     break;
-                case 'DB_HOST':
-                    $value = $this->docker ? 'mysql' : '127.0.0.1';
-                    $content .= 'DB_HOST=' . $value;
+                case '# DB_HOST':
+                    $value = $this->docker ? 'mysql' : 'localhost';
+                    $content .= '# DB_HOST=' . $value;
                     break;
-                case 'DB_DATABASE':
-                    $content .= 'DB_DATABASE=' . Str::slug($this->appName, '_');
+                case '# DB_DATABASE':
+                    $content .= '# DB_DATABASE=' . Str::slug($this->appName, '_');
                     break;
-                case 'DB_USERNAME':
+                case '# DB_USERNAME':
                     $value = $this->docker ? 'sail' : 'root';
-                    $content .= 'DB_USERNAME=' . $value;
+                    $content .= '# DB_USERNAME=' . $value;
                     break;
-                case 'DB_PASSWORD':
+                case '# DB_PASSWORD':
                     $value = $this->docker ? 'password' : '';
-                    $content .= 'DB_PASSWORD=' . $value;
+                    $content .= '# DB_PASSWORD=' . $value;
                     break;
                 case 'MEMCACHED_HOST':
                     $value = $this->docker ? 'memcached' : '127.0.0.1';
