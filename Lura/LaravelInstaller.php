@@ -382,6 +382,9 @@ class LaravelInstaller extends LuraInstaller
                         $content .= $key . '=http://localhost';
                     }
                     break;
+                case 'LOG_STACK':
+                    $content .= $key . '=daily';
+                    break;
                 case '# DB_HOST':
                     $value = $this->docker ? 'mysql' : 'localhost';
                     $content .= '# DB_HOST=' . $value;

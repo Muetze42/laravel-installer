@@ -2,7 +2,7 @@
     "name": "norman-huth/laravel-installer",
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "norman-huth/lura": "^v3.0"
     },
     "scripts": {
