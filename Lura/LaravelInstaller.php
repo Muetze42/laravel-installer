@@ -552,7 +552,7 @@ class LaravelInstaller extends LuraInstaller
      */
     protected function questionDocker(): void
     {
-        if (data_get($this->command->installerConfig, 'docker', true)) {
+        if (data_get($this->command->installerConfig, 'docker', false)) {
             $this->docker = $this->command->confirm('Add Docker files?', $this->docker);
         }
     }
