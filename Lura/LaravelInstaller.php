@@ -22,7 +22,7 @@ class LaravelInstaller extends LuraInstaller
     /**
      * @var bool
      */
-    protected bool $dev;
+    protected bool $dev = false;
     /**
      * @var string|null
      */
@@ -174,7 +174,7 @@ class LaravelInstaller extends LuraInstaller
         $this->runCommand('php artisan key:generate --ansi');
         if ($this->installNova) {
             $this->publishFolder('nova', '');
-            $this->runCommand('php artisan nova:install');
+            $this->runCommand('php artisan nova:install --ansi');
         }
 
         if ($this->docker) {
@@ -194,11 +194,11 @@ class LaravelInstaller extends LuraInstaller
                 $this->runCommand('php artisan breeze:install react' . $ssr);
                 break;
             case 'Breeze with Next.js / API scaffolding':
-                $this->runCommand('php artisan breeze:install api');
+                $this->runCommand('php artisan breeze:install api --ansi');
                 break;
             case 'Jetstream with Livewire':
                 $teams = $this->jetstreamTeams ? ' --teams' : '';
-                $this->runCommand('php artisan jetstream:install livewire' . $teams);
+                $this->runCommand('php artisan jetstream:install livewire' . $teams . ' --ansi');
                 break;
             case 'Jetstream with Inertia':
                 $ssr = $this->SSR ? ' --ssr' : '';
@@ -208,7 +208,7 @@ class LaravelInstaller extends LuraInstaller
         }
 
         if ($this->installInertia) {
-            $this->runCommand('php artisan inertia:middleware');
+            $this->runCommand('php artisan inertia:middleware --ansi');
 
             $search = '\\Illuminate\\Routing\\Middleware\\SubstituteBindings::class,';
             $replace = '\\Illuminate\\Routing\\Middleware\\SubstituteBindings::class,' . "\n" .
@@ -246,7 +246,7 @@ class LaravelInstaller extends LuraInstaller
      */
     protected function composerInstall(): void
     {
-        $this->runCommand($this->command->composer . ' install --prefer-dist');
+        $this->runCommand($this->command->composer . ' install --prefer-dist --ansi');
     }
 
     /**
@@ -473,8 +473,8 @@ class LaravelInstaller extends LuraInstaller
      */
     protected function questions(): void
     {
-        $this->questionDev();
-        $this->questionStarterKit();
+        //$this->questionDev();
+        //$this->questionStarterKit();
         $this->questionInertia();
         $this->questionNova();
         $this->questionDocker();
