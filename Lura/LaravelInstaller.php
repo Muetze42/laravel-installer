@@ -422,6 +422,8 @@ class LaravelInstaller extends LuraInstaller
             $content = str_replace('LOG_CHANNEL', "NOVA_LICENSE_KEY=\n\nLOG_CHANNEL", $content);
         }
 
+        $content = $this->envContents($content);
+
         $content = trim($content);
         $this->command->cwdDisk->put($this->appFolder . '/.env.example', $content);
         if ($this->installNova) {
@@ -429,6 +431,11 @@ class LaravelInstaller extends LuraInstaller
         }
 
         $this->command->cwdDisk->put($this->appFolder . '/.env', $content);
+    }
+
+    protected function envContents(string $contents): string
+    {
+        return $contents;
     }
 
     /**
