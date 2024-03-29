@@ -10,6 +10,11 @@
             "lura register norman-huth/laravel-installer"
         ]
     },
+    "autoload": {
+        "files": [
+            "functions/helpers.php"
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
