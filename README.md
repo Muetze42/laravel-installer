@@ -1,3 +1,6 @@
+Personally, I will now use and maintain Lura2:  
+https://github.com/Muetze42/lura2
+
 # Laravel Application Installer
 
 A Laravel Installer created for [Lura](https://github.com/Muetze42/lura).
